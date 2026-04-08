@@ -22,7 +22,7 @@ describe('Router Navigation Guards', () => {
       routes,
     })
 
-    // Ajouter le guard
+    // Add the guard
     router.beforeEach((to) => {
       const store = useUserStore()
 
@@ -36,34 +36,34 @@ describe('Router Navigation Guards', () => {
 
   it('should redirect to /login when accessing /hello without authentication', async () => {
     const store = useUserStore()
-    // Vérifier que l'utilisateur n'est pas authentifié
+    // Check that the user is not authenticated
     expect(store.isAuthenticated).toBe(false)
 
-    // Essayer d'accéder à /hello
+    // Try to access /hello
     await router.push('/hello')
-    // Le router devrait nous rediriger à /login
+    // The router should redirect us to /login
     expect(router.currentRoute.value.path).toBe('/login')
   })
 
   it('should allow access to /hello when authenticated', async () => {
     const store = useUserStore()
-    // Activer l'authentification
+    // Enable authentication
     store.isAuthenticated = true
 
-    // Accéder à /hello
+    // Access /hello
     await router.push('/hello')
-    // Vérifier qu'on est bien sur /hello
+    // Verify that we are on /hello
     expect(router.currentRoute.value.path).toBe('/hello')
   })
 
   it('should allow access to /login without authentication', async () => {
     const store = useUserStore()
-    // Vérifier que l'utilisateur n'est pas authentifié
+    // Check that the user is not authenticated
     expect(store.isAuthenticated).toBe(false)
 
-    // Accéder à /login
+    // Access /login
     await router.push('/login')
-    // Vérifier qu'on reste sur /login
+    // Verify that we stay on /login
     expect(router.currentRoute.value.path).toBe('/login')
   })
 
@@ -71,9 +71,9 @@ describe('Router Navigation Guards', () => {
     const store = useUserStore()
     expect(store.isAuthenticated).toBe(false)
 
-    // Accéder à /
+    // Access /
     await router.push('/')
-    // / redirige à /hello, qui redirige à /login car non authentifié
+    // / redirects to /hello, which redirects to /login as not authenticated
     expect(router.currentRoute.value.path).toBe('/login')
   })
 })

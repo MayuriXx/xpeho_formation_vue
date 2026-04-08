@@ -3,7 +3,7 @@ import Counter from './Counter.vue'
 import { computed } from 'vue'
 import { useUserStore } from '../stores/user.stores'
 
-const availableSports = ['Football', 'Basketball', 'Tennis', 'Natation', 'Cyclisme', 'Ski']
+const availableSports = ['Football', 'Basketball', 'Tennis', 'Swimming', 'Cycling', 'Skiing']
 const store = useUserStore()
 
 const nameInput = computed({
@@ -14,7 +14,7 @@ const nameInput = computed({
 })
 
 const statusMajeur = computed(() => {
-  return store.age >= 18 ? 'majeur' : 'mineur'
+  return store.age >= 18 ? 'Adult' : 'Minor'
 })
 
 function toggleSport(sport: string) {
@@ -31,12 +31,12 @@ function toggleSport(sport: string) {
     
     <form @submit.prevent>
       <div>
-        <label for="name">Nom:</label>
+        <label for="name">Name:</label>
         <input
           id="name"
           v-model="nameInput"
           type="text"
-          placeholder="Entrez votre nom"
+          placeholder="Enter your name"
         />
       </div>
     </form>
@@ -46,7 +46,7 @@ function toggleSport(sport: string) {
     <img v-show="nameInput == 'Toto'" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWI0NTgzcjhxbmtvNnltaW9lcnR5NzJ0NHVsc3g0Nm1rYnJnczJndSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/gdGIvVZYByAe9ET54g/giphy.gif" alt="toto gif" style="max-width: 300px; margin: 20px 0;" />
 
     <p>Age: {{ store.age }}</p>
-    <p>Statut: <strong>{{ statusMajeur }}</strong></p>
+    <p>Status: <strong>{{ statusMajeur }}</strong></p>
     <p>City: {{ store.city }}</p>
     <p>Phone: {{ store.phone }}</p>
     
@@ -62,7 +62,7 @@ function toggleSport(sport: string) {
           {{ sport }}
         </label>
       </div>
-      <p v-if="store.sports.length > 0">Sélectionnés: {{ store.sports.join(', ') }}</p>
+      <p v-if="store.sports.length > 0">Selected: {{ store.sports.join(', ') }}</p>
     </div>
     
     <Counter @increment="store.incrementAge()" @incrementBy5="store.incrementAgeBy5()" @decrementBy10="store.decrementAgeBy10()" @reset="store.resetUser()" />

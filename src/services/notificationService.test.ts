@@ -3,7 +3,7 @@ import { notificationService } from './notificationService'
 
 describe('notificationService', () => {
   beforeEach(() => {
-    // Nettoyer les notifications et logs avant chaque test
+    // Clear notifications and logs before each test
     notificationService.clear()
     notificationService.clearLogs()
     vi.clearAllTimers()
@@ -49,21 +49,20 @@ describe('notificationService', () => {
     })
 
     it('should generate unique IDs for notifications', () => {
-      vi.useRealTimers() // Utiliser les vrais timers pour que Date.now() soit réel
+      vi.useRealTimers() // Use real timers so Date.now() is real
       
       const id1 = notificationService.add('First')
-      // Petite pause pour assurer un ID différent
-      const timestamp1 = Date.now()
+      // Small pause to ensure a different ID
       vi.useFakeTimers()
       
       notificationService.add('Second')
       const id2 = notificationService.add('Third')
 
-      // Tous les IDs devraient être définis
+      // All IDs should be defined
       expect(id1).toBeDefined()
       expect(id2).toBeDefined()
       
-      // Au moins 2 IDs devraient être différents
+      // At least 2 IDs should be different
       const ids = [id1, id2]
       expect(new Set(ids).size).toBeGreaterThanOrEqual(1)
     })
@@ -80,7 +79,7 @@ describe('notificationService', () => {
 
       expect(notificationService.notifications.value).toHaveLength(1)
 
-      // Avancer le temps de 1000ms
+      // Advance time by 1000ms
       vi.advanceTimersByTime(1000)
 
       expect(notificationService.notifications.value).toHaveLength(0)
@@ -247,7 +246,6 @@ describe('notificationService', () => {
     })
 
     it('should return empty array for non-existent type', () => {
-      const logs = notificationService.getLogs('success')
       notificationService.clearLogs()
 
       const result = notificationService.getLogs('error')

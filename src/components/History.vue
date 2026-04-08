@@ -8,36 +8,36 @@ const notificationService = inject<any>('notificationService')
 const sortedHistory = computed(() => store.getSortedHistory)
 
 function formatDate(timestamp: number): string {
-  return new Date(timestamp).toLocaleString('fr-FR')
+  return new Date(timestamp).toLocaleString('en-US')
 }
 
 function getActionLabel(action: string): string {
   const labels: Record<string, string> = {
-    incrementAge: 'Âge augmenté de 1',
-    incrementAgeBy5: 'Âge augmenté de 5',
-    decrementAgeBy10: 'Âge diminué de 10',
-    updateName: 'Nom modifié',
-    updateSports: 'Sports modifiés',
-    setUser: 'Utilisateur défini',
-    updateUser: 'Utilisateur mis à jour',
-    resetUser: 'Utilisateur réinitialisé',
-    clearUser: 'Utilisateur effacé'
+    incrementAge: 'Age increased by 1',
+    incrementAgeBy5: 'Age increased by 5',
+    decrementAgeBy10: 'Age decreased by 10',
+    updateName: 'Name changed',
+    updateSports: 'Sports changed',
+    setUser: 'User set',
+    updateUser: 'User updated',
+    resetUser: 'User reset',
+    clearUser: 'User cleared'
   }
   return labels[action] || action
 }
 
 function handleClearHistory() {
   store.clearHistory()
-  notificationService.success('✓ Historique effacé avec succès!')
+  notificationService.success('✓ History cleared successfully!')
 }
 </script>
 
 <template>
   <div class="history-panel">
-    <h2>📋 Historique</h2>
+    <h2>📋 History</h2>
     
     <div v-if="sortedHistory.length === 0" class="empty-history">
-      <p>Aucun historique pour le moment</p>
+      <p>No history at the moment</p>
     </div>
 
     <div v-else class="history-list">
@@ -55,7 +55,7 @@ function handleClearHistory() {
       </div>
 
       <button @click="handleClearHistory()" class="clear-btn">
-        🗑️ Effacer l'historique
+        🗑️ Clear history
       </button>
     </div>
   </div>

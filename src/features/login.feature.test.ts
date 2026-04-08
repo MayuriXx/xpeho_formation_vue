@@ -118,7 +118,7 @@ describe('Feature: User Authentication', () => {
     // Then an error message should appear
     const errorMessage = wrapper.find('.error-message')
     expect(errorMessage.exists()).toBe(true)
-    expect(errorMessage.text()).toContain('Email invalide')
+    expect(errorMessage.text()).toContain('Invalid email')
 
     // And I should remain on the login page
     expect(router.currentRoute.value.path).toBe('/login')

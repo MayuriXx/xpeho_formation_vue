@@ -1,22 +1,22 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 
-// par convention, les noms de fonctions composables commencent par "use"
+// by convention, composable function names start with "use"
 export function useMouse() {
-  // état encapsulé et géré par le composable
+  // encapsulated state managed by the composable
   const x = ref(0)
   const y = ref(0)
 
-  // un composable peut mettre à jour son état géré au fil du temps.
+  // a composable can update its managed state over time.
   function update(event: any) {
     x.value = event.pageX
     y.value = event.pageY
   }
 
-  // un composable peut également s'accrocher au cycle de vie de son composant
-  // propriétaire pour configurer et démonter les effets de bord.
+  // a composable can also hook into the lifecycle of its component
+  // owner to set up and tear down side effects.
   onMounted(() => window.addEventListener('mousemove', update))
   onUnmounted(() => window.removeEventListener('mousemove', update))
 
-  // expose l'état géré comme valeur de retour
+  // expose the managed state as a return value
   return { x, y }
 }

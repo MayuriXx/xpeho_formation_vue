@@ -15,7 +15,7 @@ const handleLogin = () => {
     store.isAuthenticated = true
     router.push('/hello')
   } else {
-    error.value = 'Email invalide. Veuillez entrer "toto"'
+    error.value = 'Invalid email. Please enter "toto"'
   }
 }
 
@@ -35,15 +35,15 @@ const togglePermission = () => {
 <template>
   <div class="login-container">
     <div class="login-form">
-      <h1>Connexion</h1>
+      <h1>Login</h1>
       
       <div class="form-group">
-        <label for="email">Adresse email:</label>
+        <label for="email">Email address:</label>
         <input
           id="email"
           v-model="email"
           type="email"
-          placeholder="Entrez votre email"
+          placeholder="Enter your email"
           @keypress="handleKeyPress"
         />
       </div>
@@ -53,17 +53,17 @@ const togglePermission = () => {
       </div>
 
       <button @click="handleLogin" class="login-button">
-        Se connecter
+        Login
       </button>
 
       <div class="permission-section">
         <p class="permission-status">
           Permission: <strong :class="store.isAuthenticated ? 'granted' : 'denied'">
-            {{ store.isAuthenticated ? '✓ Activée' : '✗ Désactivée' }}
+            {{ store.isAuthenticated ? '✓ Enabled' : '✗ Disabled' }}
           </strong>
         </p>
         <button @click="togglePermission" class="toggle-button" :class="{ active: store.isAuthenticated }">
-          {{ store.isAuthenticated ? 'Désactiver' : 'Activer' }}
+          {{ store.isAuthenticated ? 'Disable' : 'Enable' }}
         </button>
       </div>
     </div>

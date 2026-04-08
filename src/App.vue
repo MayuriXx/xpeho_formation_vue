@@ -10,12 +10,12 @@ const store = useUserStore();
 provide('notificationService', notificationService)
 
 onMounted(() => {
-  // Charger les données sauvegardées au démarrage
+  // Load saved data at startup
   store.loadFromStorage()
 })
 
 watch(() => store.age, (newAge, oldAge) => {
-  console.log(`🔔 Âge modifié: ${oldAge} → ${newAge}`)
+  console.log(`🔔 Age changed: ${oldAge} → ${newAge}`)
 })
 </script>
 

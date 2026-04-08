@@ -13,7 +13,7 @@ describe('Login Component', () => {
     setActivePinia(createPinia())
     localStorage.clear()
 
-    // Créer un router pour les tests
+    // Create a router for testing
     const routes: RouteRecordRaw[] = [
       { path: '/login', component: Login, meta: { requiresAuth: false } },
       { path: '/hello', component: Hello, meta: { requiresAuth: true } },
@@ -24,7 +24,7 @@ describe('Login Component', () => {
       routes,
     })
 
-    // Ajouter le guard
+    // Add the guard
     router.beforeEach((to) => {
       const store = useUserStore()
       if (to.meta.requiresAuth && !store.isAuthenticated) {
@@ -42,19 +42,19 @@ describe('Login Component', () => {
         },
       })
 
-      // Remplir le champ avec "toto"
+      // Fill the field with "toto"
       const input = wrapper.find('#email')
       await input.setValue('toto')
 
-      // Cliquer sur le bouton Se connecter
+      // Click the login button
       const button = wrapper.find('.login-button')
       await button.trigger('click')
 
-      // Vérifier qu'il n'y a pas d'erreur
+      // Verify there is no error
       const errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(false)
 
-      // Vérifier que l'authentification est activée
+      // Verify that authentication is enabled
       const store = useUserStore()
       expect(store.isAuthenticated).toBe(true)
     })
@@ -66,20 +66,20 @@ describe('Login Component', () => {
         },
       })
 
-      // Remplir avec un email invalide
+      // Fill with an invalid email
       const input = wrapper.find('#email')
       await input.setValue('invalid@email.com')
 
-      // Cliquer sur le bouton
+      // Click the button
       const button = wrapper.find('.login-button')
       await button.trigger('click')
 
-      // Vérifier qu'une erreur s'affiche
+      // Verify that an error is displayed
       const errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(true)
-      expect(errorMessage.text()).toContain('Email invalide')
+      expect(errorMessage.text()).toContain('Invalid email')
 
-      // Vérifier que l'authentification n'est pas activée
+      // Verify that authentication is not enabled
       const store = useUserStore()
       expect(store.isAuthenticated).toBe(false)
     })
@@ -91,15 +91,15 @@ describe('Login Component', () => {
         },
       })
 
-      // Laisser le champ vide
+      // Leave the field empty
       const button = wrapper.find('.login-button')
       await button.trigger('click')
 
-      // Vérifier qu'une erreur s'affiche
+      // Verify that an error is displayed
       const errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(true)
 
-      // Vérifier que l'authentification n'est pas activée
+      // Verify that authentication is not enabled
       const store = useUserStore()
       expect(store.isAuthenticated).toBe(false)
     })
@@ -116,15 +116,15 @@ describe('Login Component', () => {
       const store = useUserStore()
       expect(store.isAuthenticated).toBe(false)
 
-      // Cliquer sur le bouton toggle
+      // Click the toggle button
       const toggleButton = wrapper.find('.toggle-button')
       await toggleButton.trigger('click')
 
-      // Vérifier que l'authentification est activée
+      // Verify that authentication is enabled
       expect(store.isAuthenticated).toBe(true)
 
-      // Vérifier que le texte du bouton a changé
-      expect(toggleButton.text()).toBe('Désactiver')
+      // Verify that the button text has changed
+      expect(toggleButton.text()).toBe('Disable')
     })
 
     it('should redirect to /hello after activating permission', async () => {
@@ -136,14 +136,14 @@ describe('Login Component', () => {
 
       const store = useUserStore()
 
-      // Cliquer sur le bouton toggle
+      // Click the toggle button
       const toggleButton = wrapper.find('.toggle-button')
       await toggleButton.trigger('click')
 
-      // Vérifier que l'authentification est activée
+      // Verify that authentication is enabled
       expect(store.isAuthenticated).toBe(true)
 
-      // Vérifier que router.push a été appelé avec '/hello'
+      // Verify that router.push was called with '/hello'
       expect(router.currentRoute.value.path === '/' || router.currentRoute.value.path === '/hello').toBe(true)
     })
 
@@ -156,18 +156,18 @@ describe('Login Component', () => {
 
       const store = useUserStore()
 
-      // Au départ, permission désactivée
+      // At first, permission disabled
       let status = wrapper.find('.permission-status strong')
-      expect(status.text()).toContain('Désactivée')
+      expect(status.text()).toContain('Disabled')
       expect(status.element?.classList.contains('denied')).toBe(true)
 
-      // Activer la permission
+      // Enable permission
       store.isAuthenticated = true
       await wrapper.vm.$nextTick()
 
-      // Vérifier que le statut a changé
+      // Verify that the status has changed
       status = wrapper.find('.permission-status strong')
-      expect(status.text()).toContain('Activée')
+      expect(status.text()).toContain('Enabled')
       expect(status.element?.classList.contains('granted')).toBe(true)
     })
   })
@@ -199,14 +199,14 @@ describe('Login Component', () => {
         },
       })
 
-      // Remplir avec un email invalide
+      // Fill with invalid email
       const input = wrapper.find('#email')
       await input.setValue('wrong@email.com')
 
-      // Simuler la pression de la touche Enter
+      // Simulate pressing the Enter key
       await input.trigger('keypress', { key: 'Enter' })
 
-      // Vérifier qu'une erreur s'affiche
+      // Verify that an error is displayed
       const errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(true)
     })
@@ -218,14 +218,14 @@ describe('Login Component', () => {
         },
       })
 
-      // Remplir avec "toto"
+      // Fill with "toto"
       const input = wrapper.find('#email')
       await input.setValue('toto')
 
-      // Simuler la pression d'une autre touche (par ex: 'a')
+      // Simulate pressing another key (e.g., 'a')
       await input.trigger('keypress', { key: 'a' })
 
-      // Vérifier que l'authentification n'est pas activée
+      // Verify that authentication is not enabled
       const store = useUserStore()
       expect(store.isAuthenticated).toBe(false)
     })
@@ -239,24 +239,24 @@ describe('Login Component', () => {
         },
       })
 
-      // Soumettre avec un email invalide
+      // Submit with invalid email
       const input = wrapper.find('#email')
       await input.setValue('invalid@email.com')
 
       const button = wrapper.find('.login-button')
       await button.trigger('click')
 
-      // Vérifier qu'une erreur s'affiche
+      // Verify that an error is displayed
       let errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(true)
 
-      // Modifier l'input
+      // Modify the input
       await input.setValue('toto')
 
-      // Soumettre
+      // Submit
       await button.trigger('click')
 
-      // Vérifier que l'erreur a disparu
+      // Verify that the error has disappeared
       errorMessage = wrapper.find('.error-message')
       expect(errorMessage.exists()).toBe(false)
     })

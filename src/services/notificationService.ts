@@ -24,13 +24,13 @@ export const notificationService = {
     const id = Date.now().toString()
     const timestamp = Date.now()
 
-    // Ajouter la notification
+    // Add the notification
     notifications.value.push({ id, message, type, timestamp })
 
-    // Ajouter au log
+    // Add to log
     logs.value.push({ timestamp, message, type })
 
-    // Retirer la notification après la durée
+    // Remove the notification after the duration
     if (duration > 0) {
       setTimeout(() => {
         this.remove(id)

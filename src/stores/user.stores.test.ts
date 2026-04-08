@@ -5,7 +5,7 @@ import { useUserStore } from './user.stores'
 describe('UserStore', () => {
   beforeEach(() => {
     setActivePinia(createPinia())
-    // Nettoyer le localStorage avant chaque test
+    // Clear localStorage before each test
     localStorage.clear()
   })
 
@@ -13,21 +13,21 @@ describe('UserStore', () => {
     it('should restore user data from storage', () => {
       const store = useUserStore()
 
-      // Modifier les données
+      // Modify the data
       store.name = 'Jane Doe'
       store.age = 25
       store.city = 'Paris'
 
-      // Sauvegarder
+      // Save
       store.saveToStorage()
 
-      // Créer un nouveau store (simule un rechargement)
+      // Create a new store (simulates a reload)
       const newStore = useUserStore()
 
-      // Charger depuis le storage
+      // Load from storage
       newStore.loadFromStorage()
 
-      // Vérifier que les données sont restaurées
+      // Verify that the data is restored
       expect(newStore.name).toBe('Jane Doe')
       expect(newStore.age).toBe(25)
       expect(newStore.city).toBe('Paris')
@@ -36,10 +36,10 @@ describe('UserStore', () => {
     it('should keep initial state if no data in storage', () => {
       const store = useUserStore()
 
-      // Charger depuis le storage (même s'il est vide)
+      // Load from storage (even if empty)
       store.loadFromStorage()
 
-      // Les valeurs par défaut devraient rester
+      // Default values should be preserved
       expect(store.name).toBe('John Doe')
       expect(store.age).toBe(30)
     })
@@ -49,17 +49,17 @@ describe('UserStore', () => {
     it('should persist user data to storage', () => {
       const store = useUserStore()
 
-      // Modifier les données
+      // Modify the data
       store.name = 'Alice'
       store.age = 28
       store.city = 'Lyon'
       store.phone = '999-888-7777'
       store.sports = ['Tennis', 'Swimming']
 
-      // Sauvegarder
+      // Save
       store.saveToStorage()
 
-      // Vérifier que userDataStorage (reactive ref) a changé
+      // Verify that userDataStorage (reactive ref) changed
       expect(store.userDataStorage.name).toBe('Alice')
       expect(store.userDataStorage.age).toBe(28)
       expect(store.userDataStorage.city).toBe('Lyon')
@@ -73,10 +73,10 @@ describe('UserStore', () => {
       const store = useUserStore()
       const initialLength = store.history.length
 
-      // Ajouter une entrée
+      // Add an entry
       store.addHistoryEntry('nameChanged', { name: 'Alice' })
 
-      // Vérifier que l'entrée a été ajoutée
+      // Verify that the entry was added
       expect(store.history.length).toBe(initialLength + 1)
 
       const lastEntry = store.history[store.history.length - 1]
@@ -118,7 +118,7 @@ describe('UserStore', () => {
       store.updateUser({ name: 'Bob' })
 
       expect(store.name).toBe('Bob')
-      expect(store.age).toBe(30) // Autres propriétés inchangées
+      expect(store.age).toBe(30) // Other properties unchanged
     })
 
     it('should update multiple user properties at once', () => {
@@ -133,7 +133,7 @@ describe('UserStore', () => {
       expect(store.name).toBe('Charlie')
       expect(store.age).toBe(35)
       expect(store.city).toBe('Marseille')
-      expect(store.phone).toBe('123-456-7890') // Inchangé
+      expect(store.phone).toBe('123-456-7890') // Unchanged
     })
 
     it('should add history entry when updating user', () => {
@@ -164,7 +164,7 @@ describe('UserStore', () => {
       store.updateUser({ name: 'Frank', city: 'Toulouse' })
       store.saveToStorage()
 
-      // Vérifier que userDataStorage reflète les changements
+      // Verify that userDataStorage reflects the changes
       expect(store.userDataStorage.name).toBe('Frank')
       expect(store.userDataStorage.city).toBe('Toulouse')
     })

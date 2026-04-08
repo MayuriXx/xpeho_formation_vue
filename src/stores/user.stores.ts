@@ -152,7 +152,7 @@ export const useUserStore = defineStore('UserStore', {
         this.addHistoryEntry('decrementAgeBy10', { from: oldAge, to: this.age })
         this.saveToStorage()
       } else {
-        throw new Error("L'âge ne peut pas être négatif!")
+        throw new Error("Age cannot be negative!")
       }
     },
 
