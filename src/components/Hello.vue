@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Person } from '../types/Person'
 import Counter from './Counter.vue'
-import { computed } from 'vue'
+import { computed, onBeforeMount } from 'vue'
 
 const availableSports = ['Football', 'Basketball', 'Tennis', 'Natation', 'Cyclisme', 'Ski']
 
@@ -17,6 +17,14 @@ const emit = defineEmits<{
   'update:name': [name: string]
   'update:sports': [sports: string[]]
 }>()
+
+onBeforeMount(() => {
+  console.log('Hello.vue beforeMount - Composant en cours de montage', {
+    name: props.person.name,
+    age: props.person.age,
+    nameInputValue: props.person.name,
+  })
+})
 
 const nameInput = computed({
   get: () => props.person.name,
