@@ -27,6 +27,7 @@ const initialState: UserState = {
 export const useUserStore = defineStore('UserStore', {
   state: () => ({
     ...initialState,
+    isAuthenticated: useLocalStorage<boolean>('user_authenticated', false),
     history: useLocalStorage<HistoryEntry[]>('user_history', []),
     userDataStorage: useLocalStorage<UserState>('user_data', initialState)
   }),

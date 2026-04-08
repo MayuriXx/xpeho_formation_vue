@@ -20,7 +20,6 @@ watch(() => store.age, (newAge, oldAge) => {
 </script>
 
 <template>
-  <RouterLink to="/"></RouterLink>
   <div class="app-container">
     <div class="main-content">
       <MousePosition />
