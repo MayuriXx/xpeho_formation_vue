@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import Hello from './components/Hello.vue';
 import History from './components/History.vue';
 import MousePosition from './components/MousePosition.vue';
 import { useUserStore } from './stores/user.stores'
-import { onMounted, watch } from 'vue'
+import { notificationService } from './services/notificationService'
+import { onMounted, watch, provide } from 'vue'
 
 const store = useUserStore();
+
+provide('notificationService', notificationService)
 
 onMounted(() => {
   // Charger les données sauvegardées au démarrage
@@ -15,49 +17,14 @@ onMounted(() => {
 watch(() => store.age, (newAge, oldAge) => {
   console.log(`🔔 Âge modifié: ${oldAge} → ${newAge}`)
 })
-
-function handleIncrement() {
-  store.incrementAge();
-}
-
-function handleIncrementBy5() {
-  store.incrementAgeBy5();
-}
-
-function handleDecrement() {
-  try {
-    store.decrementAgeBy10();
-  } catch (error) {
-    alert((error as Error).message)
-  }
-}
-
-function handleUpdateName(newName: string) {
-  store.updateName(newName);
-}
-
-function handleUpdateSports(newSports: string[]) {
-  store.updateSports(newSports);
-}
-
-function handleReset() {
-  store.resetUser();
-}
 </script>
 
 <template>
+  <RouterLink to="/"></RouterLink>
   <div class="app-container">
     <div class="main-content">
       <MousePosition />
-      <Hello 
-        :person="store" 
-        @increment="handleIncrement"
-        @incrementBy5="handleIncrementBy5"
-        @decrementBy10="handleDecrement"
-        @reset="handleReset"
-        @update:name="handleUpdateName"
-        @update:sports="handleUpdateSports"
-      />
+      <RouterView />
     </div>
     <History />
   </div>
