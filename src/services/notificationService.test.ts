@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { notificationService, type NotificationType } from './notificationService'
+import { notificationService } from './notificationService'
 
 describe('notificationService', () => {
   beforeEach(() => {
